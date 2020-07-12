@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+import os
+from PIL import Image
+directory = "supplier-data/images"
+for path in os.listdir(directory):
+     try:
+          with Image.open(os.path.join(directory, path)) as im:
+	       image_name = path.split(".")
+               im.resize((600,400)).convert('RGB').save("supplier-data/images/{}.jpeg".format(image_name[0]), "JPEG")
+     except:
+          pass
+
+#Don't forget to install the module PIL
+#Use the command "pip3 install pillow"

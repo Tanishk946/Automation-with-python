@@ -1,0 +1,2 @@
+#Don't forget to install resources module
+#The commands are "pip3 install resources"
