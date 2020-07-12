@@ -1,0 +1,28 @@
+#! /usr/bin/env python3
+import os
+import requests
+import glob
+
+os.chdir(r'/data/feedback')
+myfiles=glob.glob('*.txt')
+params = dict()
+url = "http://<external ip>/feedback/"
+
+for file in myfiles:
+     numberline = 0
+     response = requests.get(url)
+     if not response.ok:
+          raise Exception("GET failed with status code {}".format(response.status_code))
+     print("File name : " + file)
+     with open(file, 'r') as read_file:
+          for line in read_file:
+             if numberline == 0: 
+	        params['title'] = line.strip()
+             if numberline == 1: 
+	        params['name'] = line.strip()
+             if numberline == 2: 
+	        params['date'] = line.strip()
+             if numberline == 3: 
+	        params['feedback'] = line.strip()
+             numberline += 1
+          response = requests.post(url, data=params)

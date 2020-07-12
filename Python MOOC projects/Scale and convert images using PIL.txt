@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+import os
+from PIL import Image
+
+old_path = os.path.expanduser('~') + '/images/'
+new_path = '/opt/icons/'
+
+for image in os.listdir(old_path):
+   try:
+      with Image.open(os.path.join(old_path, image)) as im:
+          im.rotate(-90).resize((128,128)).convert('RGB').save(new_path+image,"JPEG")
+   except:
+      pass
+
+#The try and except block is used because incase of a non-image file is encountered,it executes the pass block
+#The images has to be converted into "RGB" at first,because the images are in .tiff format which is 8-bit and the resultant .jpeg files are 3*8-bit
+#The RGB converts the 8-bit to 3*8-bit
